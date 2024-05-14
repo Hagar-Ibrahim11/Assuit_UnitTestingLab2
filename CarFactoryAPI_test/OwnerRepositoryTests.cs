@@ -3,11 +3,6 @@ using CarFactoryAPI.Entities;
 using CarFactoryAPI.Repositories_DAL;
 using Moq;
 using Moq.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarFactoryAPI_test
 {
@@ -24,7 +19,7 @@ namespace CarFactoryAPI_test
             ownerRepository = new OwnerRepository(factoryContextMock.Object);
         }
         [Fact]
-        [Trait("Author", "ahmed")]
+        [Trait("Author", "hagar")]
         [Trait("Priority", "9")]
 
         public void GetCarById_AskForCar10_ReturnCar()

@@ -7,11 +7,6 @@ using CarFactoryAPI.Entities;
 using CarFactoryAPI.Repositories_DAL;
 using CarFactoryAPI_test.stups;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit.Abstractions;
 
 namespace CarFactoryAPI_test
@@ -48,9 +43,9 @@ namespace CarFactoryAPI_test
             outputHelper.WriteLine("Test clean up");
         }
         [Fact]
-        [Trait("Author", "Ahmed")]
+        [Trait("Author", "hagar")]
 
-        public void BuyCar_CarNotExist_NotExist() 
+        public void BuyCar_CarNotExist_NotExist()
         {
             outputHelper.WriteLine("Test 1");
             // Arrange
@@ -65,10 +60,10 @@ namespace CarFactoryAPI_test
             OwnerRepository ownerRepository = new OwnerRepository(factoryContext);
             CashService cashService = new CashService();
 
-            OwnersService ownersService = new OwnersService(carRepoStup,ownerRepository,cashService);
+            OwnersService ownersService = new OwnersService(carRepoStup, ownerRepository, cashService);
 
             BuyCarInput buyCarInput = new BuyCarInput()
-            { OwnerId = 10, CarId = 100, Amount = 5000};
+            { OwnerId = 10, CarId = 100, Amount = 5000 };
 
             // Act
             string result = ownersService.BuyCar(buyCarInput);
@@ -77,8 +72,8 @@ namespace CarFactoryAPI_test
             Assert.Contains("n't exist", result);
         }
 
-        [Fact(Skip ="Working on solving error")]
-        [Trait("Author","Ahmed")]
+        [Fact(Skip = "Working on solving error")]
+        [Trait("Author", "hagar")]
         public void BuyCar_CarWithOwner_Sold()
         {
             outputHelper.WriteLine("Test 2");
@@ -87,7 +82,7 @@ namespace CarFactoryAPI_test
             Car car = new Car() { Id = 10, Owner = new Owner() };
 
             // Setup the called method
-            carRepoMock.Setup(cM=>cM.GetCarById(10)).Returns(car);
+            carRepoMock.Setup(cM => cM.GetCarById(10)).Returns(car);
 
             // use the fake object as dependency
             BuyCarInput buyCarInput = new BuyCarInput()
@@ -107,7 +102,7 @@ namespace CarFactoryAPI_test
 
 
         [Fact]
-        [Trait("Author", "Ali")]
+        [Trait("Author", "hend")]
         [Trait("Priority", "5")]
 
 
@@ -124,7 +119,7 @@ namespace CarFactoryAPI_test
             carRepoMock.Setup(cm => cm.GetCarById(It.IsAny<int>())).Returns(car);
             ownersRepoMock.Setup(om => om.GetOwnerById(It.IsAny<int>())).Returns(owner);
 
-           
+
             BuyCarInput buyCarInput = new() { CarId = 5, OwnerId = 100, Amount = 5000 };
 
 
@@ -140,7 +135,7 @@ namespace CarFactoryAPI_test
         public void BuyCar_AlreadyHaveCar_NotExist()
         {
             // Arrange
-            Car car = new Car() { Id = 11, Owner = new Owner() { Id = 11, Name = "ahmed" } };
+            Car car = new Car() { Id = 11, Owner = new Owner() { Id = 11, Name = "hagar" } };
 
             carRepoMock.Setup(cm => cm.GetCarById(10)).Returns(car);
             ownersRepoMock.Setup(om => om.GetOwnerById(It.IsAny<int>())).Returns(car.Owner);
@@ -182,7 +177,7 @@ namespace CarFactoryAPI_test
 
             carRepoMock.Setup(cm => cm.GetCarById(5)).Returns(car);
             ownersRepoMock.Setup(om => om.GetOwnerById(It.IsAny<int>())).Returns(owner);
-            cashServiceMock.Setup(cs => cs.Pay(It.IsAny<int>())).Returns("Failed"); 
+            cashServiceMock.Setup(cs => cs.Pay(It.IsAny<int>())).Returns("Failed");
 
             BuyCarInput buyCarInput = new BuyCarInput() { CarId = 5, OwnerId = 100, Amount = 5000 };
 
